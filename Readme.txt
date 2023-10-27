@@ -6,8 +6,8 @@ Copyright 2023. All Rights Reserved.
 RFSW_RP_DLM is a software package used to generate the photoreceptor outer segment (OS) metrics measurement by deep learning model (DLM) reported in a longitudinal study of X-linked retinitis pigmentosa (RP) (ref). This beta version of the software is based on the work published previously:
 
 Wang Y-Z, Galles D, Klein M, Locke, KG, Birch DG (2020) TVST 9.2.15
-Wang YZ, Wu W, Birch DG. (2021) TVST 10.13.9
-Wang YZ and Birch DG (2022) Front. Med. 9:932498
+Wang Y-Z, Wu W, Birch DG. (2021) TVST 10.13.9
+Wang Y-Z and Birch DG (2022) Front. Med. 9:932498
 
 and consists of the following five components:
 
