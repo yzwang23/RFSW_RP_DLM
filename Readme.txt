@@ -37,11 +37,11 @@ For details of XML export folder naming convention as well as OCTScan structure,
 
 Run the following script to generate datasets for the training and validation of the sliding-window (SW) CNN models:
 
-script_generate_datasets_SW.m
+script_generate_training_datasets_SW.m
 
 and run the following script to generate datasets for the training and validation of U-Net CNN models:
 
-script_generate_datasets_UNet.m
+script_generate_training_datasets_UNet.m
 
 The comments in these two scripts contain details on datasets generation. OCTScan files obtained in "01_OCTScanFileGeneration" can be used to generate example datasets. 
 

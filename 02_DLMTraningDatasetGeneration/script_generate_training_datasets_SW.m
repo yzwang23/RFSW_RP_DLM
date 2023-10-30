@@ -1,4 +1,4 @@
-% script_generate_datasets_SW.m
+% script_generate_training_datasets_SW.m
 %   script to extract image patches as well as their classes from a set of 
 %   OCTScan*.mat files containg manual segmentation (ground truth) of 
 %   retinal layer boundary lines for deep learning model training and 
@@ -22,7 +22,7 @@ clc; clearvars; close all;
 cd(fileparts(mfilename('fullpath')));
 
 % added on 05/28/2020
-dataForMatConvNet = 1;      % = 1 -> generating data for MatConvNet
+dataForMatConvNet = 0;      % = 1 -> generating data for MatConvNet
 dataForSWMATLAB   = 1;      % = 1 -> generating data for SW MATLAB
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -109,7 +109,12 @@ disp('make sub-data directories for SW MatConvNet and SW MATLAB ...');
 DirName    = D.DirName;                % directory to OCTScan*.mat files
 Indx       = find(DirName==filesep);
 SubDataDir = DirName(Indx(end)+1:length(DirName));
-% NameApend  = ['_', num2str(Param.m), '_', num2str(Param.n), '_', OverlapStr, '_SW'];
+
+% check if SubDataDir name contains '_Train' or not, if not, add '_Train'
+if ~contains(SubDataDir, '_Train')
+  SubDataDir = [SubDataDir, '_Train'];
+end
+
 NameApend  = [PerCTrain, '_SW_', num2str(Param.m), '_', num2str(Param.n), '_', OverlapStr];
 SubDataDirSWMatConvNet     = [SubDataDir, NameApend, '_MatConvNet'];
 SubDataDirSWMATLAB         = [SubDataDir, NameApend];
@@ -127,7 +132,7 @@ end
 
 % open diary to record datasets generated
 clc;
-diaryFileName = [SubDataDirSWMATLABFull, filesep, SubDataDirSWMATLAB, 'Datasets_Generated.txt'];
+diaryFileName = [SubDataDirSWMATLABFull, filesep, SubDataDirSWMATLAB, '_Datasets_Generated.txt'];
 diary(diaryFileName);
 
 
@@ -343,4 +348,4 @@ fprintf('\n');
 fprintf('\n');
 diary off;
 
-% end of script_generate_datasets_SW.m
+% end of script_generate_training_datasets_SW.m

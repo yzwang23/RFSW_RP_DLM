@@ -1,4 +1,4 @@
-% script_generate_datasets_UNet.m
+% script_generate_training_datasets_UNet.m
 %   script to extract image patches and their classes from a single set of 
 %   OCTScan*.mat files for DML model training and validation, and save them
 %   into datasets in specified folders. This script will generate datasets 
@@ -14,12 +14,6 @@
 % Copyright. All Rights Reserved.
 %
 
-% Note that this script is based on script_generate_datasets_oneset.m
-% Note that a fixed random sequence is used for the list of patients by
-%	employing the following method to divide patients into percent
-% 	rng('default');
-% 	A = RandomSequence(numPatients, [0 1], 1);
-
 clc; clearvars; close all;
 
 % save scaled patch images or not
@@ -28,7 +22,7 @@ saveScaledPatchImage = 0;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('define parameters - common and specific to the model ...')
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% unet specific parameters
+% UNet specific parameters
 mUNet           = 256;    	% [mUNet, nUNet] -> patch size
 nUNet           = 32;
 overlapUNet     = 0.875;    % patch overlap, e.g., 0.50 -> 50% overlapping
@@ -50,7 +44,7 @@ miniBatchSize = 128;
 % specify OCT segmentation boundary lines defined by gold standard, as well
 % as define class names and class labels, including 'NONE' as the first 
 % element with class 0 (negative patch or background); Note that for area
-% segmentation (unet), number of classes is equal to # of boundary lines
+% segmentation (UNet), number of classes is equal to # of boundary lines
 LineName       = {'ILM' 'INL' 'PR1' 'RPE' 'BM'};         % segment lines
 ClassNameUNet	 = {'None' 'ILM_INL','INL_PR1','PR1_RPE','RPE_BM'};
 ClassLabelUNet = [0 1 2 3 4];
@@ -58,9 +52,9 @@ ClassLabelUNet = [0 1 2 3 4];
 % make sure the order of line names from top to bottom
 LineName = HEOCTCheckLineNameListOrder(LineName);	% check order
 
-% list of graders - for gold-standard classifications of patches
-% Graders = {'YZW', 'DG'};      % using labels from multiple graders' 
-Graders = {'YZW'};
+% list of graders - for recording only. All manual graders' segmentation in
+% an OCTScan will be used to generate training/validation data
+Graders = {'YZW'};    % can add other graders
 
 % from tvRatio to percent training
 if tvRatio<inf
@@ -88,7 +82,7 @@ D = GetOCTScanFiles;                % scanType in the 2nd place, ID 4th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 disp('generate datasets for UNet ...');
 
-% modify parameters specific to unet
+% modify parameters specific to UNet
 Param            = DefaultParamPatchExtraction;
 Param.segType    = 0;       % =0 -> area; =1 -> line
 Param.m          = mUNet;
@@ -104,10 +98,16 @@ Param.batchSize  = miniBatchSize;
 % pre-process or not
 Param.Pre.preProcess = 0;
 
-% make sub-data directory to save datasets for unet training
+% make sub-data directory to save datasets for UNet training
 DirName = D.DirName;            % training OCTScan files folder
 Indx = find(DirName==filesep);
 SubDataDir = DirName(Indx(end)+1:length(DirName));
+
+% check if SubDataDir name contains '_Train' or not, if not, add '_Train'
+if ~contains(SubDataDir, '_Train')
+  SubDataDir = [SubDataDir, '_Train'];
+end
+
 NameApend = [PerCTrain, '_UNET_', num2str(Param.m), '_', num2str(Param.n), '_O', num2str(round(Param.overlap * Param.n))];
 SubDataDirUNet = [SubDataDir, NameApend];
 SubDataDirUNetFull = [parentDataDir, filesep, SubDataDirUNet];
@@ -142,7 +142,7 @@ for p=1:length(PerNum)
   ID               = D.ID(Indx);          % for saving
   Eye              = D.Eye(Indx);         % for saving
 
-  disp('  extract image patches & their labels for unet training ...');
+  disp('  extract image patches & their labels for UNet training ...');
   [Patches, PatchesC] = ExtractPatchesFromOCTScans(OCTScanFileNames, DirName, Param);
   numPatches = size(Patches, 4);
   disp(['  ', num2str(numPatches), ' total number of patches generated from ', num2str(PerNum(p)), '% of patients ...']);
@@ -238,16 +238,6 @@ for p=1:length(PerNum)
   metadata.Param      = Param;
   save(fullfile(SubSubDataDirUNetFull, 'metadata.mat'), 'metadata');
   
-  
-%   % save trianing image patches & labels arrays in .mat files
-%   save(fullfile(SubSubDataDirUNetFull, 'TrainImages.mat'), 'TrainImages', '-v7.3');
-%   save(fullfile(SubSubDataDirUNetFull, 'TrainLabels.mat'), 'TrainLabels', '-v7.3');
-%   
-%   % save validation image patches & labels arrays in .mat files  
-%   save([SubSubDataDirSWMATLABFull, filesep, 'ValidateImages.mat'], 'ValidImages', '-v7.3');
-%   save([SubSubDataDirSWMATLABFull, filesep, 'ValidateLabels.mat'], 'ValidLabels', '-v7.3');
-
-
   % save training and validating image patches & label arrays in files
   SavePatchesToFile(SubSubDataDirUNetFull, 'TrainingImages', TrainImages, 'Image');
   SavePatchesToFile(SubSubDataDirUNetFull, 'TrainingLabels', TrainLabels, 'Label');
@@ -257,7 +247,7 @@ for p=1:length(PerNum)
     SavePatchesToFile(SubSubDataDirUNetFull, 'TrainingLabelsScale', TrainLabels_scaled, 'LabelScale');
   end
 
-  % save validation image patches and labels in files for unet
+  % save validation image patches and labels in files for UNet
   SavePatchesToFile(SubSubDataDirUNetFull, 'ValidateImages', ValidImages, 'Image');
   SavePatchesToFile(SubSubDataDirUNetFull, 'ValidateLabels', ValidLabels, 'Label');
 
@@ -278,4 +268,4 @@ fprintf('\n');
 fprintf('\n');
 diary off;
 
-% end of script_generate_datasets_UNet.m
+% end of script_generate_training_datasets_UNet.m
