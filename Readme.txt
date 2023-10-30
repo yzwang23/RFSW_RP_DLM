@@ -12,14 +12,14 @@ Wang Y-Z and Birch DG (2022) Front. Med. 9:932498
 and consists of the following five components:
 
 01_OCTScanFileGeneration
-02_TrainingDatasetGeneration
+02_DLMTrainingDatasetGeneration
 03_DLMTraining
 04_OCTScanClassification
 05_OCTScanMeasurement
 
 Accompanying this software package are an Excel file of OS metrics measurement results ("OS Metrics Measurement Results - XLRP Longitudinal Study - IOVS 2023.xlsx") and four examples of XML exports of two deidentified OCT volume scans, obtained using Spectralis SD-OCT from the left eye of a patient on 2 separate visits in the folder "Volume_Scan_Examples/XML_RP_Auto_HE_Manu_YZW_ID_P22". These XML exports are included for demonstrating the use of the software package. Each volume scan has two XLM exports: one with the layer boundary segmentation results by the Spectralis' built-in automatic segmentation software, and the other with manual correction or segmentation upon the automatic segmentation by Spectralis for five boundary lines: inner limiting membrane (ILM), distal inner nuclear layer (dINL), ellipsoid zone (EZ), proximal retinal pigment epithelium (pRPE), and Bruch's membrane (BM). The following are the instructions on how to run different components of this software package.
 
-
+##
 01_OCTScanFileGeneration
 
 Run the following script to convert XLM files to the OCTScan data structure used by the RFSW_RP_DLM software package:
@@ -32,6 +32,20 @@ Select a folder containing XML exports, e.g., "XML_RP_Auto_HE_Manu_YZW_ID_P22", 
 
 For details of XML export folder naming convention as well as OCTScan structure, please refer to the notes in script_sort_HE_XML_Export_to_OCTScan_multi_graders.m
 
+##
+02_DLMTrainingDatasetGeneration
 
-02_TrainingDatasetGeneration
+Run the following script to generate datasets for the training and validation of the sliding-window (SW) CNN models:
+
+script_generate_datasets_SW.m
+
+and run the following script to generate datasets for the training and validation of U-Net CNN models:
+
+script_generate_datasets_UNet.m
+
+The comments in these two scripts contain details on datasets generation. OCTScan files obtained in "01_OCTScanFileGeneration" can be used to generate example datasets. 
+
+##
+03_DLMTraining
+
 
