@@ -1,4 +1,4 @@
-% script_get_layer_metrics_from_OCTScan_all_segment_multi_folder.m
+% script_get_layer_metrics_from_OCTScan_all_segmentations.m
 %   script to obtain layer metrics measurements from a list of OCTScan*.mat
 %   files that have been segmented by various approaches, including auto,
 %   manual, and/or DL models. OCTScan*.m files can be in a single selected 
@@ -99,4 +99,4 @@ end
 
 warning('on');    % turn warning back on
 
-% end of script_get_layer_metrics_from_OCTScan_all_segment_multi_folder.m
+% end of script_get_layer_metrics_from_OCTScan_all_segmentations.m
