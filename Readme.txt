@@ -19,7 +19,12 @@ and consists of the following parts:
 06_SharedFunctions
 07_Utilities
 
-Download the software package and add it to the search path of MATLAB. The software package was tested in MATLAB 2023b on both Apple silicon and Intel processor Macs running macOS Sonoma 14.1 or macOS Big Sur 11.7.10. In addition, accompanying this software package are an Excel file of OS metrics measurement results ("OS Metrics Measurement Results - XLRP Longitudinal Study - IOVS 2023.xlsx") and four examples of XML exports of two deidentified OCT volume scans, obtained using Heidelberg Spectralis SD-OCT, in the folder "Volume_Scan_Examples/XML_RP_Auto_HE_Manu_YZW_ID_P22". These XML exports are included for demonstrating the use of the software package. Each volume scan has two XLM exports: one with the layer boundary segmentation results by the Spectralis' built-in automatic segmentation software, and the other with manual correction upon the automatic segmentation by Spectralis for five boundary lines: inner limiting membrane (ILM), distal inner nuclear layer (dINL), ellipsoid zone (EZ), proximal retinal pigment epithelium (pRPE), and Bruch's membrane (BM). The following are the instructions on how to run each part of this software package.
+Download the software package and add it to the search path of MATLAB. The software package was tested in MATLAB 2023b on both Apple silicon and Intel processor Macs running macOS Sonoma 14.1 or macOS Big Sur 11.7.10. 
+
+In addition, accompanying this software package are the following items:
+	(i) an Excel file of OS metrics measurement results ("OS Metrics Measurement Results - XLRP Longitudinal Study - IOVS 2023.xlsx");
+	(ii) three pairs of trained UNet and the sliding-window (SW) models used in the XLRP longitudinal study; and 
+	(iii) four examples of XML exports of two deidentified OCT volume scans in the folder "Volume_Scan_Examples/XML_RP_Auto_HE_Manu_YZW_ID_P22", obtained using Heidelberg Spectralis SD-OCT. These XML exports are included for demonstrating the use of the software package. Each volume scan has two XLM exports: one with the layer boundary segmentation results by the Spectralis' built-in automatic segmentation software, and the other with manual correction upon the automatic segmentation by Spectralis for five boundary lines: inner limiting membrane (ILM), distal inner nuclear layer (dINL), ellipsoid zone (EZ), proximal retinal pigment epithelium (pRPE), and Bruch's membrane (BM). The following are the instructions on how to run each part of this software package.
 
 
 ##
