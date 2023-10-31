@@ -36,7 +36,7 @@ Note that converting XML exports to OCTScan data structure requires a MATLAB Cen
 
 Select a folder containing XML exports, e.g., "XML_RP_Auto_HE_Manu_YZW_ID_P22", the script will generate OCTScan files in the designated output folder or in a new folder named "OCTScans_RP_Auto_HE_Manu_YZW_ID_P22" under the parent folder of XML export folder if no output folder is specified.
 
-For details of XML export folder naming convention as well as OCTScan structure, please refer to the notes in "script_sort_HE_XML_Export_to_OCTScan_multi_graders.m"
+For details of XML export folder naming convention as well as OCTScan structure, refer to the notes in "script_sort_HE_XML_Export_to_OCTScan_multi_graders.m"
 
 
 ##

@@ -144,12 +144,7 @@ for j=1:length(AutoFiles)
     % check if OCTScanFileName exists in the destination folder
     if ~exist([OutputPathName, OCTScanFileName, '.mat'], 'file')	% not exist
       disp('    OCTScan file not exist ...')
-      
       disp('    save OCTScan to a .mat file in the output folder ...');
-
-      % st = ['save ', OCTScanFileName ' OCTScan', ' -v7.3'];
-      % eval(st);
-
       save(OCTScanFileName, 'OCTScan', '-v7.3');
 
     else        % if OCTScanFileName already existed
@@ -176,10 +171,6 @@ for j=1:length(AutoFiles)
       
       disp('    save updated OCTScan to replace previous OCTScan ...');
       OCTScan = OCTScan_pre;      % OCTScan_pre is now updated
-
-      % st = ['save ', OCTScanFileName ' OCTScan', ' -v7.3'];
-      % eval(st);
-
       save(OCTScanFileName, 'OCTScan', '-v7.3');
 
     end
@@ -211,15 +202,10 @@ for j=1:length(ManuFiles)
           OCTScan_temp = OCTScan;         % store OCTScan to a temp var
           for i=1:length(OCTScan.Images)
             OCTScan.Images(i).Segment = [];
-            st = ['OCTScan.Images(i).Segment.', Grader_Init, ' = OCTScan_temp.Images(i).Segment;'];
-            eval(st);
+            OCTScan.Images(i).Segment.(Grader_Init) = OCTScan_temp.Images(i).Segment;
           end
 
           disp('    save OCTScan to a .mat file in the folder ...');
-
-          % st = ['save ', OCTScanFileName ' OCTScan', ' -v7.3'];
-          % eval(st);
-
           save(OCTScanFileName, 'OCTScan', '-v7.3');
             
         else        % if OCTScanFileName already existed
@@ -236,20 +222,11 @@ for j=1:length(ManuFiles)
           % no matter that previous Grader_Init exists or not
           % copy current Segment field to Segment.Grader_Init
           for i=1:length(OCTScan.Images)
-
-            % st = ['OCTScan_pre.Images(i).Segment.', Grader_Init, ' = OCTScan.Images(i).Segment;'];
-            % eval(st);
-
             OCTScan_pre.Images(i).Segment.(Grader_Init) = OCTScan.Images(i).Segment;
-
           end
           
           disp('    save updated OCTScan to replace previous OCTScan ...');
           OCTScan = OCTScan_pre;      % OCTScan_pre is now updated
-
-          % st = ['save ', OCTScanFileName ' OCTScan', ' -v7.3'];      % MOD by YZW on 20210707 to save OCTScan as '-v7.3'
-          % eval(st);
-
           save(OCTScanFileName, 'OCTScan', '-v7.3');
 
         end
