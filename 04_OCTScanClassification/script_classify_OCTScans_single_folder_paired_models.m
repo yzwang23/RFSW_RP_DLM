@@ -18,7 +18,7 @@ cd(fileparts(mfilename('fullpath')));
 %**************************************************************************
 % specify a list of paired UNET & SW models
 %**************************************************************************
-% default model pairs for three DLM measurements
+% model pairs for three DLM measurements
 ModelPairs = {'RP340_T080_UNET256x32_O28_DLM01', 'RP340_T080_SW33x33_O32_DLM01'; ...
               'RP340_T080_UNET256x32_O28_DLM02', 'RP340_T080_SW33x33_O32_DLM02'; ...
               'RP340_T080_UNET256x32_O28_DLM03', 'RP340_T080_SW33x33_O32_DLM03'};
@@ -65,11 +65,6 @@ if dataDir==0
 end
 disp(['dataDir = ', dataDir]);
 fprintf('\n');
-
-%**************************************************************************
-% classify all OCTScan*.mat files in OCTScanList
-%**************************************************************************
-% ClassifyOCTScansHybrid(ModelList, OCTScanList, ModelPairs, Param);
 
 
 %**********************************************************************
