@@ -19,7 +19,7 @@ and consists of the following parts:
 06_SharedFunctions
 07_Utilities
 
-Download the software package and add it to the search path of MATLAB. The software package was tested in MATLAB 2023b on both Apple silicon and Intel processor Macs running macOS Sonoma 14.1 or macOS Big Sur 11.7.10. 
+Download the software package and add it to the search path of MATLAB. The software package was tested in MATLAB 2023b on both Apple silicon and Intel processor Macs running macOS Sonoma 14.1 or macOS Big Sur 11.7.10, and requires the following MATLAB toolboxes: Computer Vision, Image Processing, Deep Learning, Statistics and Machine Learning.
 
 In addition, accompanying this software package are the following items:
 	(i) an Excel file of OS metrics measurement results ("OS Metrics Measurement Results - XLRP Longitudinal Study - IOVS 2023.xlsx");
