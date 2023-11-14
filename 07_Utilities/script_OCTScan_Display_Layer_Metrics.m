@@ -12,9 +12,9 @@ clearvars; clc; close all;
 
 % specify the type of segmenation to plot
 % SegType = 'Auto';       % HE auto segmentation
-% SegType = 'Manu';       % manual segmentation
+SegType = 'Manu';       % manual segmentation
 % SegType = 'DMLM';       % UNet segmentation
-SegType = 'HDMLM';        % hybrid model segmentation
+% SegType = 'HDMLM';        % hybrid model segmentation
 
 % specify two segmentation lines for thickness analysis
 LN1 = 'PR1';
@@ -31,7 +31,7 @@ scanPlotZLimit = 50;    % Z-axis limit in micrometer for 3-D layer map
 elimIsoEZSegment = 1;
 
 % which segment in SegType to display
-segNum = 1;                 % which segment in SegType
+segNum = 2;                 % which segment in SegType
 
 % plot parameters
 PlotParam = DefaultOCTVolScanPlotParam;
