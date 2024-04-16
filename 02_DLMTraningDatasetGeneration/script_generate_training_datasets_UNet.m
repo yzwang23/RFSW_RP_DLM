@@ -200,7 +200,7 @@ for p=1:length(PerNum)
   end
 
   if checkSamplePatches==1 && size(ValidLabels,4)>0
-    disp('  display validatoin image patch examples in thumbnails ...');
+    disp('  display validation image patch examples in thumbnails ...');
     DisplayPatchThumbnails(ValidImages, ValidLabels, Param, 9);
   end
 
